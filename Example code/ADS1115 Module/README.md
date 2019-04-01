@@ -8,4 +8,4 @@ On electronic cicuits and components, can work with 2 kind of signal, analog and
 
 The Raspberry pi can't read analog signals, for that reason is require use a ADS1115 Module, this take an analog signal and send information in digital signal.
 
-This module works with any electronical device, such as [Hygrometer FC-28](/Example&#32;code/Hygrometer&#32;FC-28&#32;Sensor), Hall sensor (analog output).
+This module works with any electronical device, such as [Hygrometer FC-28](/Example&#32;code/Hygrometer&#32;FC-28&#32;Sensor), [Hall sensor](/Example&#32;code/Hall&#32;Effect&#32;Sensor) (analog outp to ut). The example code show how get data from the ADS1115 Decice to SDA pin in raspberry, to wire this sensor

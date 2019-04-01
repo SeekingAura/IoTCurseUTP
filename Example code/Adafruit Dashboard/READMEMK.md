@@ -20,3 +20,7 @@ The Data publish follow certain protocol (execute by library, same protocol to [
 ![Execute preview - adafruit AIO LIB](/Images/Example&#32;code/Execute&#32;preview&#32;adafruit&#32;AIO&#32;library.png)
 ![Execute result - adafruit AIO LIB](/Images/Example&#32;code/Execute&#32;result&#32;dashboard&#32;adafruit&#32;AIO&#32;library.png)
 
+# References
+* [Adafruit IO Library - MQTT API Documentation](https://learn.adafruit.com/welcome-to-adafruit-io/mqtt-api-documentation-2)
+* [Adafruit IO Library - Usage Example](https://adafruit-io-python-client.readthedocs.io/en/latest/feed-sharing.html#usage-example)
+* [Adafruit Groups, Feeds, and Proper MQTT Topics](https://io.adafruit.com/blog/notebook/2017/11/02/groups-feeds-and-fixing-mqtt-topics/)
