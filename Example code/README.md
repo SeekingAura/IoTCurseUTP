@@ -24,7 +24,7 @@ Raspberry Pi can interface to electronical devices with GPIO Pins, this can send
 ### Hall Effect Sensor
 Detect magnetive presence, have digital and analog output, digital output only show if are magnetive presence or no, analog output gives magnitive measurement, for analog signal is required [ADS1115 Module](#ads1115-module).
 
-[Hall Effect Sensor- Folder]()
+[Hall Effect Sensor- Folder](/Example&#32;code/Hall&#32;Effect&#32;Sensor)
 
 ### Hygrometer FC-28 Sensor
 Soil moisture is calculate with Hygrometer FC-28 Sensor, the value about humidity is conductivity between electrodes of the sensor, sensor hve analog and digital output, where digital output indicate if are or not humidity, analog output can indicate percentage of humidity but is required [ADS1115 Module](#ads1115-module).
@@ -37,16 +37,13 @@ Comunication with publish and subscribe adminsitrative by a Broker server (can b
 [MQtt Protocol - Folder](/Example&#32;code/MQTT&#32;Protocol)
 
 ### Piroelectric Sensor
-PIR sensor reacts
+PIR sensor detect a motion in area with IR changes, this usefull for trigger door open, calculate activity in a certain area, have a digital signal output, for that reason only require [GPIO Pins](#gpio-pins) to use in raspberry.
 
+[PIR - Folder](/Example&#32;code/Pyroelectric&#32;HC-SR501&#32;Sensor)
 
 ### Ultrasonic Sensor HC-sr04
 Ultrasonic Sensor works with ultra sonic pulses, this sensor can generate ultra sonic pulse and detect when this pulse is received on the sensor generate a output digital signal, this sensor have some applications how: measure object distance, check if something is near, measurement liquid on a deposit. 
 
 To work on raspberry pi requires do the measurement manually, the process is trigger ultra sonic pulse, start measure time, wait for receive pulse, stop measure time, multiply by sound spped, divide by 2, all signals are digital.
 
-[Ultrasonic Sensor - Folder](/Example&#32;code/Ultrasonic&#32;Sensor&#32;HC-sr04)
-
-
-
-
+[Ultrasonic Sensor - Folder](/Example&#32;code/Ultrasonic&#32;Sensor&#32;HC-SR04)

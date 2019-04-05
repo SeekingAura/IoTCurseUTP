@@ -1,18 +1,14 @@
-#Libraries
-import RPi.GPIO as GPIO
+# Import standard python modules
 import time
+
+# Import GPIO Module
+import RPi.GPIO as GPIO
  
-#GPIO Mode (BOARD / BCM)
-GPIO.setmode(GPIO.BCM)
- 
-#set GPIO Pins
+# set GPIO Pins Trigger and echo vars
 GPIO_TRIGGER = 18
 GPIO_ECHO = 24
- 
-#set GPIO direction (IN / OUT)
-GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
-GPIO.setup(GPIO_ECHO, GPIO.IN)
- 
+
+# Define Function to get data from ultrasonic sensor
 def distance():
     # set Trigger to HIGH
     GPIO.output(GPIO_TRIGGER, True)
@@ -34,20 +30,29 @@ def distance():
  
     # time difference between start and arrival
     TimeElapsed = StopTime - StartTime
-    # multiply with the sonic speed (34300 cm/s)
+    # multiply with the sonic speed
+    # in the air at 20° 343.6 m/s
     # and divide by 2, because there and back
     distance = (TimeElapsed * 343.59999999999997) / 2
  
     return distance
  
+# Define Function "main", way to manage errors
+def main():
+    #GPIO Mode (BOARD / BCM)
+    GPIO.setmode(GPIO.BCM)
+    
+    #set GPIO direction (IN / OUT)
+    GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
+    GPIO.setup(GPIO_ECHO, GPIO.IN)
+    while True:
+        dist = distance()
+        print ("Measured Distance = %.1f m" % dist)
+        time.sleep(0.5)
+
 if __name__ == '__main__':
+
     try:
-        while True:
-            dist = distance()
-            print ("Measured Distance = %.1f m" % dist)
-            time.sleep(1)
- 
-        # Reset by pressing CTRL + C
-    except KeyboardInterrupt:
-        print("Measurement stopped by User")
+        main() 
+    except:
         GPIO.cleanup()
