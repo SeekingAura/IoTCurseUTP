@@ -1,5 +1,7 @@
 # Import standard python modules
 import time
+import os
+import sys
 
 # Import Adafruit IO MQTT client.
 from Adafruit_IO import Client
