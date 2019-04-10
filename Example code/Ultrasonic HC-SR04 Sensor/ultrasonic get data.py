@@ -45,13 +45,13 @@ def main():
     #set GPIO direction (IN / OUT)
     GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
     GPIO.setup(GPIO_ECHO, GPIO.IN)
+    
     while True:
         dist = distance()
         print ("Measured Distance = %.1f m" % dist)
         time.sleep(0.5)
 
 if __name__ == '__main__':
-
     try:
         main() 
     except:

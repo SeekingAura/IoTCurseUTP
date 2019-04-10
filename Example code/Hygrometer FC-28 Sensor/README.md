@@ -1,6 +1,6 @@
 # Hygrometer FC-28
 ## How sensor Works
-Soils moisture sensors get's data from the soil, uses on farming activities, this get value from conductivity between electrodes, if is wet soil those electrodes have full conductivity then voltage value an raw value is near to zero, if is dry soil the electrodes have few conductivity the voltage value and raw value is higer than zero.
+Soils moisture sensors get's data from the soil, uses on farming activities, this get value from conductivity between electrodes, if is wet soil these electrodes have full conductivity then voltage value an raw value is near to zero, if is dry soil the electrodes have few conductivity the voltage value and raw value is higer than zero.
 
 ## Get data from sensor
 Hygrometer have 2 output signal type, Analog and Digital, with digital signal the sensor only output 0 when is dry and 1 when is wet, the sensivity about detection can change with potenciometer (screw inside module), turn rigth to increase, turn left to decrease. But with analog signal sensor output a range of values (depend about protocol read). The example code [Hygrimeter get data.py](/Example&#32;code/Hygrometer&#32;FC-28&#32;Sensor/Hygrometer&#32;get&#32;data.py) get data from analog output, a precision data is useful for a better data analytic, because analog signal give a continuos data, raspberry pi only can read digital signals, for that reason is required a [ADS1115 module](/Example&#32;code/ADS1115&#32;Module), this convert an analog signal to digital (where is the data with certain protocol).
