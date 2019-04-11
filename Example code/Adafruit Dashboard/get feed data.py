@@ -23,4 +23,4 @@ if __name__ == "__main__":
 		incubatorLigthIntensityData=aio.receive(incubatorLigthIntensity.key)
 
 		print("Estado del LED {}".format(incubatorLigthStateData.value))
-		print("Intensidad del LED".format(incubatorLigthIntensityData.value))
+		print("Intensidad del LED {}".format(incubatorLigthIntensityData.value))

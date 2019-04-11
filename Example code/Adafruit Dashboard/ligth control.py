@@ -4,11 +4,13 @@ import os
 import sys
 
 # Import RPi.GPIO library
-import RPi.GPIO as GPIO     
+try:
+   import RPi.GPIO as GPIO
+except RuntimeError:
+   print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
 
 # Import Adafruit IO MQTT client.
 from Adafruit_IO import Client
-
 
 def main():
 	if(len(sys.argv)!=3):
@@ -23,7 +25,7 @@ def main():
 	# Set GPIO pin direction
 	GPIO.setup(led_pin, GPIO.OUT)
 	
-	# Setup PWM instance to led_pin with 100 Hz
+	# Setup PWM instance to led_pin with 60 Hz
 	pwm = GPIO.PWM(led_pin, 60)
 	
 	# Connect to Adafruit IO Server
