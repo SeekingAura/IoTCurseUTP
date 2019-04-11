@@ -1,7 +1,6 @@
 # Import standard python modules
 import time
 
-
 # Import RPi.GPIO library
 import RPi.GPIO as GPIO     
 
