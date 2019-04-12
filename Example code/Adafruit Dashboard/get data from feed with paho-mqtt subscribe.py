@@ -15,7 +15,7 @@ if(len(sys.argv)!=4):
 AdafruitIOFeedUsername=sys.argv[1]
 AdafruitIOKey=sys.argv[2]# Beware, your Key is Secret!
 # AdafruitIOGroupKey=sys.argv[3] # Group where Feed From
-AdafruitIOFeedKey=sys.argv[3]# Feed key where data receive
+AdafruitIOFeedKey=sys.argv[3]# complete Feed key where data receive
 
 # Define callback functions which will be called when certain events happen.
 def on_connect(client, userdata, flags, rc):

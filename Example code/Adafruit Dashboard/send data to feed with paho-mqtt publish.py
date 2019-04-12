@@ -8,14 +8,13 @@ import sys
 import paho.mqtt.client as mqtt
 
 # "global" Vars
-if(len(sys.argv)!=5):
-		sys.stderr.write('Usage: "{0}" $AdafruitIOUsername $AdafruitIOKey $AdafruitIOGroupKey $AdafruitIOFeedKey\n'.format(sys.argv[0]))
+if(len(sys.argv)!=4):
+		sys.stderr.write('Usage: "{0}" $AdafruitIOUsername $AdafruitIOKey $AdafruitIOFeedKey\n'.format(sys.argv[0]))
 		os._exit(1)
 
 AdafruitIOFeedUsername=sys.argv[1]
 AdafruitIOKey=sys.argv[2]# Beware, your Key is Secret!
-AdafruitIOGroupKey=sys.argv[3] # Group where Feed From
-AdafruitIOFeedKey=sys.argv[4]# Feed key where data receive
+AdafruitIOFeedKey=sys.argv[3]# Feed (without '.' and group key) key where data receive
 
 # Define callback functions which will be called when certain events happen.
 def on_connect(client, userdata, flags, rc):
@@ -33,7 +32,7 @@ def send_message(client):
 	while True:
 		if(client.messageSend is not None):
 			# publish topic $username/feeds/$groupKey.$feedKey
-			client.publish(AdafruitIOFeedUsername+"/feeds/"+AdafruitIOGroupKey+"."+AdafruitIOFeedKey, client.messageSend)
+			client.publish(AdafruitIOFeedUsername+"/feeds/"+AdafruitIOFeedKey, client.messageSend)
 			time.sleep(10)
 		
 if __name__ == "__main__":

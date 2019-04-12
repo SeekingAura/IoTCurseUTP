@@ -34,7 +34,7 @@ The Device have 26 GPIO pins, something of those have other functions such as SD
 To read this table the 5.0v are in rigth of raspberry (near to border)
 
 ## Testing GPIO Pins
-GPIO Pins can use with system sentences or programing language such as python, the example code [gpio example.py](Example&#32;code/GPIO&#32;Pins/gpio&#32;example.py) test all GPIO Pins, on the execute turn on the ascendant of GPIO Pin Number and turn off the descendant GPIO Pin Number. This example use [RPi.GPIO](https://sourceforge.net/p/raspberry-gpio-python/wiki/Home/) Library (exist others for that).
+GPIO Pins can use with system sentences or programing language such as python, the example code [LED on and off.py](Example&#32;code/GPIO&#32;Pins/LED&#32;on&#32;and&#32;off.py) test all GPIO Pins with simple digital signals, on the execute turn on the ascendant of GPIO Pin Number and turn off the descendant GPIO Pin Number. This example use [RPi.GPIO](https://sourceforge.net/p/raspberry-gpio-python/wiki/Home/) Library (exist others for that), RPi.GPIO can use PWM technique, this is usefull for change ligth intensity, modulate motor speed and more, the example code [LED brightness.py](Example&#32;code/GPIO&#32;Pins/LED&#32;brightness.py) turn on a LED in GPIO 21 with low brigtness, this increment 1% per 0.01 seconds and when it reaches 100% this decrease 1% until 0%.
 
 ### Electronical components
 * Raspberry pi
@@ -42,13 +42,15 @@ GPIO Pins can use with system sentences or programing language such as python, t
 * 26 resistor 220Ohms-1kOhms
 
 ### Graphic circuit
-![GPIO pin Test LEDs](/Images/Circuits/GPIO&#32;pins_bb.png)
+![GPIO pin Test LEDs](/Images/Circuits/LED&#32;on&#32;and&#32;off_bb.png)
 
 ### Run in termal
 ```bash
-python3 "gpio example.py"
+python3 "LED on and off.py"
 ```
-
+```bash
+python3 "LED brightness.py"
+```
 # References
 * [GPIO Official Documentation](https://www.raspberrypi.org/documentation/usage/gpio/)
 * [GPIO Zero Offical Documentation](https://www.raspberrypi.org/documentation/usage/gpio/python/README.md)

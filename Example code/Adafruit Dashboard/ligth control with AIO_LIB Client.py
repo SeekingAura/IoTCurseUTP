@@ -14,8 +14,14 @@ from Adafruit_IO import Client
 
 def main():
 	if(len(sys.argv)!=3):
-		sys.stderr.write('Usage: "{0}" $AdafruitIOUsername $AdafruitIOKey\n'.format(sys.argv[0]))
+		sys.stderr.write('Usage: "{0}" $AdafruitIOUsername $AdafruitIOKey $AdafruitIOFeedForStateKey $AdafruitIOFeedForIntensityKey \n'.format(sys.argv[0]))
 		os._exit(1)
+	
+	AdafruitIOFeedUsername=sys.argv[1]
+	AdafruitIOKey=sys.argv[2]# Beware, your Key is Secret!
+	incubatorLigthStateFeedKey=sys.argv[3] # Feed key where data is received
+	incubatorLigthIntensityFeedKey=sys.argv[4] # Feed key where data is received
+
 	# var GPIO pin to show output
 	led_pin = 21
 	
@@ -29,11 +35,11 @@ def main():
 	pwm = GPIO.PWM(led_pin, 60)
 	
 	# Connect to Adafruit IO Server
-	aio=Client(username=sys.argv[1], key=sys.argv[2])
+	aio=Client(username=AdafruitIOFeedUsername, key=AdafruitIOKey)
 
 	# Link to feeds
-	incubatorLigthState=aio.feeds("incubadura0.estado-de-luz")
-	incubatorLigthIntensity=aio.feeds("incubadura0.intensidad-luminica")
+	incubatorLigthStateFeed=aio.feeds(incubatorLigthStateFeedKey)
+	incubatorLigthIntensityFeed=aio.feeds(incubatorLigthIntensityFeedKey)
 	
 	# Control vars
 	dutyValue=0
@@ -43,8 +49,8 @@ def main():
 	try:
 		while True:
 			# get feeds data from Adafruit IO
-			incubatorLigthStateData=aio.receive(incubatorLigthState.key)
-			incubatorLigthIntensityData=aio.receive(incubatorLigthIntensity.key)
+			incubatorLigthStateData=aio.receive(incubatorLigthStateFeed.key)
+			incubatorLigthIntensityData=aio.receive(incubatorLigthIntensityFeed.key)
 		   
 			# check if the received data is new
 			if(incubatorLigthStateData.updated_at!=incubatorLigthStateLastUpdate):
@@ -59,7 +65,7 @@ def main():
 					pwm.stop()
 					
 					# Set on dashboard (publish) ligth intensity in 0
-					aio.send(incubatorLigthIntensity.key, 0)
+					aio.send(incubatorLigthIntensityFeed.key, 0)
 			
 			# check if the received data is new
 			if(incubatorLigthIntensityData.updated_at!=incubatorLigthIntensityLastUpdate):
@@ -80,8 +86,8 @@ def main():
 							
 	except KeyboardInterrupt:
 		# Set default values in dashboard (publish)
-		aio.send(incubatorLigthState.key, "OFF")
-		aio.send(incubatorLigthIntensity.key, 0)
+		aio.send(incubatorLigthStateFeed.key, "OFF")
+		aio.send(incubatorLigthIntensityFeed.key, 0)
 		
 		# Stop PWM
 		pwm.stop()

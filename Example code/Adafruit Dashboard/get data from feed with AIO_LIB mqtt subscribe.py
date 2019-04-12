@@ -7,14 +7,13 @@ import sys
 from Adafruit_IO import MQTTClient
 
 # "global" Vars
-if(len(sys.argv)!=5):
-		sys.stderr.write('Usage: "{0}" $AdafruitIOUsername $AdafruitIOKey $AdafruitIOGroupKey $AdafruitIOFeedKey\n'.format(sys.argv[0]))
+if(len(sys.argv)!=4):
+		sys.stderr.write('Usage: "{0}" $AdafruitIOUsername $AdafruitIOKey $AdafruitIOFeedKey\n'.format(sys.argv[0]))
 		os._exit(1)
 
 AdafruitIOFeedUsername=sys.argv[1]
 AdafruitIOKey=sys.argv[2]# Beware, your Key is Secret!
-AdafruitIOGroupKey=sys.argv[3] # Group where Feed From
-AdafruitIOFeedKey=sys.argv[4]# Feed key where data receive
+AdafruitIOFeedKey=sys.argv[3]# Feed key where data receive
 
 # Define callback functions which will be called when certain events happen.
 def on_connect(client):
@@ -34,7 +33,6 @@ def on_message(client, feed_id, payload):
     # The feed_id parameter identifies the feed, and the payload parameter has
     # the new value.
 	print('Feed {0} ha recibido el valor-> {1}'.format(feed_id, payload))
-
 
 if __name__=="__main__":
 	# Create an MQTT client instance.
