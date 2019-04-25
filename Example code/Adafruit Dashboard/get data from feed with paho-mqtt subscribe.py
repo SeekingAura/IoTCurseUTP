@@ -1,5 +1,4 @@
 # Import standard Python Modules
-import threading
 import time
 import os
 import sys
