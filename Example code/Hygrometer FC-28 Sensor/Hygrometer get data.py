@@ -20,11 +20,12 @@ if __name__=="__main__":
 	# Create single-ended input on channel 0
 	chan = AnalogIn(ads, ADS.P0)
 
-	# Create differential input between channel 0 and 1
-	#chan = AnalogIn(ads, ADS.P0, ADS.P1)
+	# Control vars
+	rawValueMax=14500
+	rawValueMin=12000
 	
 	print("{:>5}\t{:>5}".format('raw', 'v'))
 
 	while True:
-		print("porcentaje de humedad {:.2f}%".format(100-((chan.value-14500)/12000)*100))
+		print("porcentaje de humedad {:.2f}%".format(100-((chan.value-rawValueMax)/rawValueMin)*100))
 		time.sleep(0.5)

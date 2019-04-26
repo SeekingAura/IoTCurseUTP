@@ -1,5 +1,4 @@
 # Import standard python modules
-import time
 import os
 import sys
 
