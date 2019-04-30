@@ -21,11 +21,12 @@ if __name__=="__main__":
 	chan = AnalogIn(ads, ADS.P0)
 
 	# Control vars
-	rawValueMax=14500
-	rawValueMin=12000
+	rawValueMin=14500
+	rawValueMax=26500
+	rawValueDeltaMax=rawValueMax-rawValueMin
 	
 	print("{:>5}\t{:>5}".format('raw', 'v'))
 
 	while True:
-		print("porcentaje de humedad {:.2f}%".format(100-((chan.value-rawValueMax)/rawValueMin)*100))
+		print("porcentaje de humedad {:.2f}%".format(100-((chan.value-rawValueMin)/rawValueDeltaMax)*100))
 		time.sleep(0.5)

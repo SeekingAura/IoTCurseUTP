@@ -43,14 +43,17 @@ if __name__ == "__main__":
 
 	print("Ejecución de publicación activado, para salir escriba 'x'")
 	while True:
-		numPin=str(input("Ingrese los pines a interactuar, con el fomarto #, #, #"))
-		if(numPin=="x"):
-			break
-		newState=str(input("Indique el nuevo estado para los pines (HIGH o LOW)"))
-		if(newState=="x"):
-			break
-		elif(newState!="HIGH" and newState!="LOW"):
-			print("Nuevo estado de pines invalido")
-		else:
-			print("Publicando al topic -> '{0}'".format("area0/pi0"))
-			client.publish("area0/pi0","["+numPin+"]"+"& "+newState)
+		message=str(input("Ingrese el mensaje a enviar:\n"))
+		success=False# Var for format check
+		# The next checks is better do with regex, but can do with you whatever prefer
+		if("encender" in message or "apagar" in message):# check if are respective action in message
+			if(" ~ " in message):# check if are correct format separator
+				try:#handle format error
+					if(message.split(" ~ ")[1].isdigit()):# check if second value is number
+						success=True
+						print("Publicando al topic -> '{0}'".format("edificio1/piso1/habitacion1/luces"))
+						client.publish("edificio1/piso1/habitacion1/luces", message)
+				except:
+					print("Error en el formato")
+		if(not success):
+			print("Se desconoce a que topic enviar el mensaje dado")

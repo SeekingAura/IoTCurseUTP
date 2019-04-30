@@ -1,5 +1,6 @@
 # Import standard Python Modules
 import time
+import sys
 
 # Import RPi.GPIO Module
 try:
@@ -33,6 +34,6 @@ if __name__ == '__main__':
 	try:
 		main()
 	except Exception as e:
-		print(e)
+		print(e, "line", sys.exc_info()[-1].tb_lineno)
 		GPIO.cleanup()
 

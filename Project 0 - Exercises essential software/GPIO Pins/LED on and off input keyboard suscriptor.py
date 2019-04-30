@@ -9,7 +9,9 @@ import paho.mqtt.client as mqtt
 try:
 	import RPi.GPIO as GPIO
 except RuntimeError:
-	print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
+	print("Error importing RPi.GPIO!  This is probably because you need \
+	superuser privileges.  You can achieve \
+	this by using 'sudo' to run your script")
 
 # Define callback functions which will be called when certain events happen.
 def on_connect(client, userdata, flags, rc):
@@ -18,21 +20,30 @@ def on_connect(client, userdata, flags, rc):
 
 	# Subscribing in on_connect() means that if we lose the connection and
 	# reconnect then subscriptions will be renewed.
-	print("Suscribiendose al topic ->{0}".format("area0/pi0"))
-	client.subscribe("area0/pi0")
+	print("Suscribiendose al topic ->{0}".format("area0/luces"))
+	client.subscribe("area0/luces")
 
 def on_message(client, userdata, message):
 	# Message function will be called when a subscribed feed has a new value.
 	messageStr=str(message.payload.decode("utf-8"))
 	print("message received " ,str(message.payload.decode("utf-8")))
 	print("message topic=",message.topic)
-	if("& " in messageStr):
-		numPin, newStatePin =messageStr.split("& ")
-		numPin=eval(numPin)
-		if(newStatePin=="LOW"):
-			GPIO.output(numPin, GPIO.LOW)
-		elif(newStatePin=="HIGH"):
-			GPIO.output(numPin, GPIO.HIGH)
+
+	# Catch errors
+	try:
+		if("| " in messageStr):
+			pinNums, newStatePin =messageStr.split("| ")
+			# Convert string to integer list
+			pinNums=eval(pinNums)
+
+			if(newStatePin=="OFF"):
+				GPIO.output(pinNums, GPIO.LOW)
+			elif(newStatePin=="ON"):
+				GPIO.output(pinNums, GPIO.HIGH)
+			else:
+				print("Estado recibido incorrecto")
+	except Exception as e:
+		print("Error al ejecutar el mensaje recibido:\n{} line {}".format(e, sys.exc_info()[-1].tb_lineno))
 
 def main():
 	if(len(sys.argv)!=2):
