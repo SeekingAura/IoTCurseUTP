@@ -7,7 +7,6 @@ import threading
 # Import Adafruit IO Client.
 from Adafruit_IO import Client
 
-
 # Class for params into instance for Threading call
 class messageSendControl():
 	def __init__(self, message):

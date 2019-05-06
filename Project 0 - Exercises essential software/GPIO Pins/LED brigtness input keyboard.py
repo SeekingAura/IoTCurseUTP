@@ -55,6 +55,6 @@ def main():
 if __name__ == "__main__":
 	try:
 		main()
-	except Exception as e:
-		print(e, "line", sys.exc_info()[-1].tb_lineno)
+	except:
+		print("{} line {}".format(sys.exc_info()[0], sys.exc_info()[-1].tb_lineno))
 		GPIO.cleanup()

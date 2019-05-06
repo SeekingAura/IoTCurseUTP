@@ -23,5 +23,4 @@ if __name__ == "__main__":
 	while True:
 		# get last data from the feeds, Warning should be have any data, not empty
 		fuelPercentageData=aio.receive(fuelPercentageFeed.key)
-
 		print("Capacidad en el tanque {}%".format(fuelPercentageData.value))

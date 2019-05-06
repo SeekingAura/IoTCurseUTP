@@ -9,7 +9,7 @@ try:
 except RuntimeError:
    print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
 
-# Import Adafruit IO MQTT client.
+# Import Adafruit IO Client.
 from Adafruit_IO import Client
 
 def main():
@@ -99,6 +99,6 @@ def main():
 if __name__ == "__main__":
 	try:
 		main()
-	except Exception as e:
-		print(e)
+	except:
+		print("{} line {}".format(sys.exc_info()[0], sys.exc_info()[-1].tb_lineno))
 		GPIO.cleanup()

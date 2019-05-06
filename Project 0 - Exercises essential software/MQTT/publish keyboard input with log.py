@@ -93,6 +93,7 @@ if __name__ == "__main__":
 			fileControl.close()
 	except:
 		# Write on log file
+		print("{} line {}".format(sys.exc_info()[0], sys.exc_info()[-1].tb_lineno))
 		fileControl=open("log publish.txt", "a", encoding='utf8')
 		fileControl.write("{}|{}|{}|{}\n".format(datetime.datetime.now(), "Nulo", "Nulo", "Terminado"))
 		fileControl.close()

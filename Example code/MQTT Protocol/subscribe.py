@@ -12,8 +12,8 @@ def on_connect(client, userdata, flags, rc):
 
 	# Subscribing in on_connect() means that if we lose the connection and
 	# reconnect then subscriptions will be renewed.
-	print("Suscribiendose al topic ->{0}".format("area0/pi0"))
-	client.subscribe("area0/pi0")
+	print("Suscribiendose al topic ->{0}".format("area0/#"))
+	client.subscribe("area0/#")
 
 def on_message(client, userdata, message):
 	# Message function will be called when a subscribed feed has a new value.

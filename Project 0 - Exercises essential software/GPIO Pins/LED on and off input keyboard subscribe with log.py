@@ -63,7 +63,6 @@ def main():
 		os._exit(1)
 
 	GPIO.setmode(GPIO.BCM)
-	GPIO.setwarnings(False)
 	
 	# List with all GPIO pin numbers
 	pinList=[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
@@ -93,4 +92,5 @@ if __name__ == "__main__":
 	try:
 		main()
 	except:
+		print("{} line {}".format(sys.exc_info()[0], sys.exc_info()[-1].tb_lineno))
 		GPIO.cleanup()
