@@ -24,37 +24,37 @@ def on_disconnect(client):
 def on_message(client, userdata, message):
 	# Message function will be called when a subscribed feed has a new value.
 	messageStr=str(message.payload.decode("utf-8"))
+	print("-"*10)# Format for show data
 	print("message received " ,str(message.payload.decode("utf-8")))
 	print("message topic=",message.topic)
 	
 	area, plant, action=message.topic.split("/")
-
 	if(action=="HumedadSuelo"):	
 		valueSensor=float(messageStr)
-		print("porcentaje de humedad del suelo {:.2f}%".format(valueSensor))
+		print("porcentaje de humedad del suelo {:0.2f}%".format(valueSensor))
 		
 		if(valueSensor<40):
-			state="baja"
+			state="humedad suelo baja"
 		elif(valueSensor>75):
-			state="alta"
+			state="humedad suelo alta"
 		else:
-			state="normal"
+			state="humedad suelo normal"
 
 		if(state!=client.lastSoilMoistureState):
 			GPIO.output(list(client.pinSoilMoisture.values()), GPIO.LOW)
 			GPIO.output(client.pinSoilMoisture.get(state), GPIO.HIGH)
 			client.lastSoilMoistureState=state
-			print("cambio de estado humedad del suelo a {}".format(state))
+			print("cambio de estado humedad del suelo a '{}'".format(state))
 
 	elif(action=="TemperaturaAmbiente"):
 		valueSensor=float(messageStr)
-		print("Temperatura ambiental")
+		print("Temperatura ambiental {}°".format(valueSensor))
 		if(valueSensor<35):
-			state="baja"
+			state="temperatura ambiente baja"
 		elif(valueSensor>40):
-			state="alta"
+			state="temperatura ambiente alta"
 		else:
-			state="normal"
+			state="temperatura ambiente normal"
 
 		if(state!=client.lastTemperatureState):
 			GPIO.output(list(client.pinTemperature.values()), GPIO.LOW)
@@ -63,33 +63,35 @@ def on_message(client, userdata, message):
 			print("cambio de estado temperatura del ambiente a {}".format(state))
 
 	elif(action=="HumedadAmbiente"):
-		valueSensor=float(valueSensor)
-		print("porcentaje de humedad ambiental {:.2f}%".format(valueSensor))
+		valueSensor=float(messageStr)
+		print("porcentaje de humedad ambiental {:0.2f}%".format(valueSensor))
 		if(valueSensor<50):
-			state="baja"
+			state="humedad ambiente baja"
 		elif(valueSensor>80):
-			state="alta"
+			state="humedad ambiente alta"
 		else:
-			state="normal"
+			state="humedad ambiente normal"
 
 		if(state!=client.lastHumidityState):
 			GPIO.output(list(client.pinHumidity.values()), GPIO.LOW)
 			GPIO.output(client.pinHumidity.get(state), GPIO.HIGH)
 			client.lastHumidityState=state
 			print("cambio de estado humedad del ambiente a {}".format(state))
+	print("-"*10)# Format for show data
 
 def main():
 	if(len(sys.argv)!=2):
 		sys.stderr.write('Usage: "{0}" $hostAddress\n'.format(sys.argv[0]))
 		os._exit(1)
-	# Dict with GPIO pin numbers for humidty alert
-	pinSoilMoisture={"baja":6, "normal":7, "alta":8}
+
+	# Dict with some GPIO pin numbers
+	pinSoilMoisture={"humedad suelo baja":14, "humedad suelo normal":15, "humedad suelo alta":16}
 
 	# Dict with GPIO pin numbers for temperature alert
-	pinTemperature={"baja":12, "normal":13, "alta":14}
+	pinTemperature={"temperatura ambiente baja":8, "temperatura ambiente normal":9, "temperatura ambiente alta":10}
 
 	# Dict with GPIO pin numbers for humidty alert
-	pinHumidity={"baja":20, "normal":21, "alta":22}
+	pinHumidity={"humedad ambiente baja":21, "humedad ambiente normal":22, "humedad ambiente alta":23}
 
 	# Setup GPIO setmode
 	GPIO.setmode(GPIO.BCM)

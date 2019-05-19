@@ -19,27 +19,23 @@ from Adafruit_IO import Client
 
 if __name__=="__main__":
 	if(len(sys.argv)!=6):
-		sys.stderr.write('Usage: "{0}" $AIOUsername $AIOKey $AIOFeedKeySoilMoisture $AIOFeedKeyAmbientHumidity $AIOFeedKeyAmbientTemperature\n'.format(sys.argv[0]))
+		sys.stderr.write('Usage: "{0}" $AIOUsername $AIOKey $AIOFeedKeySoilMoisture $AIOFeedKeyAmbientTemperature $AIOFeedKeyAmbientHumidity\n'.format(sys.argv[0]))
 		os._exit(1)
 
 	AIOUsername=sys.argv[1]
 	AIOKey=sys.argv[2]# Beware, your Key is Secret!
 	AIOFeedKeySoilMoisture=sys.argv[3] # Feed key where data is received
-	AIOFeedKeyAmbientHumidity=sys.argv[4] # Feed key where data is received
-	AIOFeedKeyAmbientTemperature=sys.argv[5] # Feed key where data is received
+	AIOFeedKeyAmbientTemperature=sys.argv[4] # Feed key where data is received
+	AIOFeedKeyAmbientHumidity=sys.argv[5] # Feed key where data is received
+	
 
 	# Connect to Adafruit IO Server
 	aio=Client(username=AIOUsername, key=AIOKey)
 
 	# Link to feeds
 	soilMoistureFeed=aio.feeds(AIOFeedKeySoilMoisture)
-	ambientHumidityFeed=aio.feeds(AIOFeedKeyAmbientHumidity)
 	ambientTemperatureFeed=aio.feeds(AIOFeedKeyAmbientTemperature)
-
-	# get feeds data from Adafruit IO
-	# feedSoilMoistureData=aio.receive(feedSoilMoisture.key)
-	# feedSAmbientHumidityData=aio.receive(feedAmbientHumidity.key)
-	# feedSAmbientTemperatureData=aio.receive(feedAmbientTemperature.key)
+	ambientHumidityFeed=aio.feeds(AIOFeedKeyAmbientHumidity)
 
 	# Create the I2C bus
 	i2c = busio.I2C(board.SCL, board.SDA)
@@ -66,8 +62,9 @@ if __name__=="__main__":
 		
 		# Check Retreive Data
 		if humidity is not None and temperature is not None:
-			print('Temp={}°  Humidity={}%'.format(temperature, humidity))
-			aio.send(ambientHumidityFeed.key, float(humidity))
+			print('Temperatura ambiental {:0.1f}°'.format(temperature))
+			print('Humedad ambiental {:0.1f}%'.format(humidity))
 			aio.send(ambientTemperatureFeed.key, float(temperature))
+			aio.send(ambientHumidityFeed.key, float(humidity))
 		
 		time.sleep(10)

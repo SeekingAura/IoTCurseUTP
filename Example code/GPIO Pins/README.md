@@ -31,6 +31,7 @@ The Device have 26 GPIO pins, something of those have other functions such as SD
 |  37  | GPIO26 |                 |&#x1F518;|&#x1F518;|                 | GPIO20 |  38  |
 |  39  | Ground |                 |&#x26AB; |&#x1F518;|                 | GPIO21 |  40  |
 |  →   |   →    |        →        |    ↑    |    ↑    |         ←       |    ←   |   ←  |
+
 To read this table the 5.0v are in rigth of raspberry (near to border)
 
 ## Testing GPIO Pins
@@ -42,7 +43,11 @@ GPIO Pins can use with system sentences or programing language such as python, t
 * 26 resistor 220Ohms-1kOhms
 
 ### Graphic circuit
-![GPIO pin Test LEDs](/Images/Circuits/LED&#32;on&#32;and&#32;off_bb.png)
+#### Circuit for "LED on and off.py"
+![Circuit LED on and off](/Images/Circuits/LED&#32;on&#32;and&#32;off_bb.png)
+
+#### Circuit for "LED brightness.py"
+![Circuit LED brightness](/Images/Circuits/LED&#32;brightness_bb.png)
 
 ### Run in termal
 ```bash

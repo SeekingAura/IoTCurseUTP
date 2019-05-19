@@ -13,7 +13,7 @@ import RPi.GPIO as GPIO
 def on_connect(client, userdata, flags, rc):
 	# Connected function will be called when the client connects.
 	print("Conectado con codigo resultante:  "+str(rc))
-	print("Suscribiendose al topic ->{0}".format("area0/#"))
+	print("Suscribiendose al topic ->{0}".format("area0/+/HumedadSuelo"))
 	client.subscribe("area0/+/HumedadSuelo")
 
 def on_disconnect(client):
@@ -22,6 +22,7 @@ def on_disconnect(client):
 	os._exit(1)
 
 def on_message(client, userdata, message):
+	print("-"*10)# Format for show data
 	# Message function will be called when a subscribed feed has a new value.
 	messageStr=str(message.payload.decode("utf-8"))
 	print("message received " ,str(message.payload.decode("utf-8")))
@@ -45,6 +46,7 @@ def on_message(client, userdata, message):
 			GPIO.output(client.pinSoilMoisture.get(state), GPIO.HIGH)
 			client.lastSoilMoistureState=state
 			print("cambio de estado humedad del suelo a {}".format(state))
+	print("-"*10)# Format for show data
 
 
 def main():

@@ -42,10 +42,10 @@ def send_message(aioClient, tankMeasureFeedInstance, tankStatusFeedInstance, mes
 					logFile.write("{}~{}~{}~{}\n".format(datetime.datetime.now(), tankStatusFeedInstance.key, "normal", "Estado de temperatura enviado"))
 
 				# LED control
-				tankStatusFeedData=aio.receive(tankStatusFeedInstance.key)
+				tankStatusFeedData=aioClient.receive(tankStatusFeedInstance.key)
 				if(lastState!=tankStatusFeedData.value):
 					GPIO.output(list(pinList), GPIO.LOW)
-					GPIO.output(pinList.get(i), GPIO.HIGH)
+					GPIO.output(pinList.get(tankStatusFeedData.value), GPIO.HIGH)
 					logFile.write("{}~{}~{}~{}\n".format(datetime.datetime.now(), tankStatusFeedInstance.key, tankStatusFeedData, "Encendiendo LED {} - Estado recibido {}".format(pinList.get(i), tankStatusFeedData.value)))
 					lastState=tankStatusFeedData.value
 				
@@ -57,7 +57,7 @@ def send_message(aioClient, tankMeasureFeedInstance, tankStatusFeedInstance, mes
 			lock.release()
 			time.sleep(10)
 
-if __name__ == "__main__":
+def main():
 	if(len(sys.argv)!=5):
 		sys.stderr.write('Usage: "{0}" $AIOUsername $AIOKey $tankMeasureFeedKey $tankStatusFeedKey\n'.format(sys.argv[0]))
 		os._exit(1)
@@ -89,13 +89,12 @@ if __name__ == "__main__":
 	logFile.close()
 	
 	# Setup Threading, to publish message every 10 seconds
-	hilo0=threading.Thread(target=send_message, args=(aio, tankMeasureFeedInstance, tankStatusFeedInstance, messageInstance, pinList))
+	hilo0=threading.Thread(target=send_message, args=[aio, tankMeasureFeedInstance, tankStatusFeedInstance, messageInstance, pinList,])
 	hilo0.start()
 
 	# Mod publish value
-	while messageInstance.message!="x": # char 'x' to exit
+	while True:
 		messageInstance.message=input("Ingrese nuevo valor para el tanque\n")
-		
 		# Sincronization threads
 		lock.acquire()
 		# write on log file
@@ -103,5 +102,12 @@ if __name__ == "__main__":
 		logFile.write("{}~{}~{}~{}\n".format(datetime.datetime.now(), "Nulo", "Nulo", "Valor de temperatura modificado a {}".format(messageInstance.message)))
 		logFile.close()
 		lock.release()
-	os._exit(1)
+	
+if __name__ == "__main__":
+	try:
+		main()
+	except:
+		print("{} line {}".format(sys.exc_info()[0], sys.exc_info()[-1].tb_lineno))
+		GPIO.cleanup()
+		
  
