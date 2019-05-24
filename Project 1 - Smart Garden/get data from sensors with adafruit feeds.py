@@ -10,40 +10,47 @@ import RPi.GPIO as GPIO
 from Adafruit_IO import Client
 
 def main():
-	if(len(sys.argv)!=7):
-		sys.stderr.write('Usage: "{0}" $AIOUsername $AIOKey $AIOFeedKeySoilMoisture $AIOFeedKeyAmbientTemperature $AIOFeedKeyAmbientHumidity $AIOFeedKeyState\n'.format(sys.argv[0]))
+	if(len(sys.argv)!=6):
+		sys.stderr.write('Usage: "{0}" $aIOUsername $aIOKey \
+			$aIOFeedKeySoilMoisture $aIOFeedKeyAmbientTemperature \
+			$aIOFeedKeyAmbientHumidity \n'.format(sys.argv[0]))
 		os._exit(1)
 
-	AIOUsername=sys.argv[1]
-	AIOKey=sys.argv[2]# Beware, your Key is Secret!
-	AIOFeedKeySoilMoisture=sys.argv[3] # Feed key where data is received
-	AIOFeedKeyAmbientTemperature=sys.argv[4] # Feed key where data is received
-	AIOFeedKeyAmbientHumidity=sys.argv[5] # Feed key where data is received
-	AIOFeedKeyState=sys.argv[6] # Feed key where data is received
+	aIOUsername=sys.argv[1]
+	aIOKey=sys.argv[2]		# Beware, your Key is Secret!
+
+	# Feed key's where data is received
+	aIOFeedKeySoilMoisture=sys.argv[3]
+	aIOFeedKeyAmbientTemperature=sys.argv[4]
+	aIOFeedKeyAmbientHumidity=sys.argv[5]
+	aIOFeedKeyState=sys.argv[6]
 
 	# Connect to Adafruit IO Server
-	aio=Client(username=AIOUsername, key=AIOKey)
+	aio=Client(username=aIOUsername, key=aIOKey)
 
 	# Link to feeds
-	soilMoistureFeed=aio.feeds(AIOFeedKeySoilMoisture)
-	ambientTemperatureFeed=aio.feeds(AIOFeedKeyAmbientTemperature)
-	ambientHumidityFeed=aio.feeds(AIOFeedKeyAmbientHumidity)
-	stateFeed=aio.feeds(AIOFeedKeyState)
+	soilMoistureFeed=aio.feeds(aIOFeedKeySoilMoisture)
+	ambientTemperatureFeed=aio.feeds(aIOFeedKeyAmbientTemperature)
+	ambientHumidityFeed=aio.feeds(aIOFeedKeyAmbientHumidity)
 
 	# Dict with some GPIO pin numbers
-	pinSoilMoisture={"humedad suelo baja":14, "humedad suelo normal":15, "humedad suelo alta":16}
+	pinSoilMoisture={"humedad suelo baja":14, "humedad suelo normal":15, 
+		"humedad suelo alta":16}
 
 	# Dict with GPIO pin numbers for temperature alert
-	pinTemperature={"temperatura ambiente baja":8, "temperatura ambiente normal":9, "temperatura ambiente alta":10}
+	pinTemperature={"temperatura ambiente baja":8, 
+		"temperatura ambiente normal":9, "temperatura ambiente alta":10}
 
 	# Dict with GPIO pin numbers for humidty alert
-	pinHumidity={"humedad ambiente baja":21, "humedad ambiente normal":22, "humedad ambiente alta":23}
+	pinHumidity={"humedad ambiente baja":21, "humedad ambiente normal":22, 
+		"humedad ambiente alta":23}
 
 	# Setup GPIO setmode
 	GPIO.setmode(GPIO.BCM)
 
 	# Set GPIO pin signal OUT and initial value "shutdown"
-	GPIO.setup(list(pinTemperature.values())+list(pinSoilMoisture.values())+list(pinHumidity.values()), GPIO.OUT, initial=GPIO.LOW)
+	GPIO.setup(list(pinTemperature.values())+list(pinSoilMoisture.values())
+		+list(pinHumidity.values()), GPIO.OUT, initial=GPIO.LOW)
 
 	# set control state var
 	humidityLastState=""
@@ -63,7 +70,8 @@ def main():
 		
 		if(soilMoistureData.updated_at!=soilMoistureLastUpdate):	
 			valueSensor=float(soilMoistureData.value)
-			print("porcentaje de humedad del suelo {:.2f}%".format(valueSensor))
+			print("porcentaje de humedad del suelo {:.2f}%".format(
+				valueSensor))
 			
 			if(valueSensor<40):
 				state="humedad suelo baja"
@@ -94,12 +102,14 @@ def main():
 				GPIO.output(list(pinTemperature.values()), GPIO.LOW)
 				GPIO.output(pinTemperature.get(state), GPIO.HIGH)
 				temperatureLastState=state
-				print("cambio de estado temperatura del ambiente a {}".format(state))
+				print("cambio de estado temperatura del ambiente a {}".format(
+					state))
 			temperatureLastUpdate=ambientTemperatureData.updated_at
 
 		if(ambientHumidityData.updated_at!=humidityLastUpdate):
 			valueSensor=float(ambientHumidityData.value)
-			print("porcentaje de humedad ambiental {:.2f}%".format(valueSensor))
+			print("porcentaje de humedad ambiental {:.2f}%".format(
+				valueSensor))
 			if(valueSensor<50):
 				state="humedad ambiente baja"
 			elif(valueSensor>80):
@@ -111,7 +121,8 @@ def main():
 				GPIO.output(list(pinHumidity.values()), GPIO.LOW)
 				GPIO.output(pinHumidity.get(state), GPIO.HIGH)
 				humidityLastState=state
-				print("cambio de estado humedad del ambiente a {}".format(state))
+				print("cambio de estado humedad del ambiente a {}".format(
+					state))
 			
 			humidityLastUpdate=ambientHumidityData.updated_at
 
@@ -119,6 +130,7 @@ if __name__=="__main__":
 	try:
 		main()
 	except:
-		print("{} line {}".format(sys.exc_info()[0], sys.exc_info()[-1].tb_lineno))
+		print("{} line {}".format(sys.exc_info()[0], 
+			sys.exc_info()[-1].tb_lineno))
 		GPIO.cleanup()
 
