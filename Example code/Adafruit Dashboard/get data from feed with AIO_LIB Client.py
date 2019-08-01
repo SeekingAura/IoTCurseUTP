@@ -19,8 +19,11 @@ if __name__ == "__main__":
 
 	# Link to feeds
 	fuelPercentageFeed=aio.feeds(AdafruitIOFeedKey)
-
+	lastUpdate=""
 	while True:
 		# get last data from the feeds, Warning should be have any data, not empty
 		fuelPercentageData=aio.receive(fuelPercentageFeed.key)
-		print("Capacidad en el tanque {}%".format(fuelPercentageData.value))
+		if(lastUpdate!=fuelPercentageData.updated_at):
+			print("Capacidad en el tanque {}%".format(fuelPercentageData.value))
+			lastUpdate=fuelPercentageData.updated_at
+		time.sleep(1)

@@ -1,6 +1,7 @@
 # Import standard python modules
 import os
 import sys
+import time
 
 # Import Adafruit IO MQTT client.
 from Adafruit_IO import Client
@@ -29,3 +30,4 @@ if __name__ == "__main__":
 		
 		print("Estado de luz {}, última actualización {}".format(incubatorLigthStateData.value, incubatorLigthStateData.updated_at))
 		print("Intensidad de luz {}, última actualización {}".format(incubatorLigthIntensityData.value, incubatorLigthIntensityData.updated_at))
+		time.sleep(1)

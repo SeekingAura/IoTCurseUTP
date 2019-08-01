@@ -71,15 +71,14 @@ def main():
 	# Control of count system
 	countPeople=DataCount()
 
-	# When magnetic element is far the min value is reached
+	# When magnetic element is near the min value is reached
 	sensorValueMin=6900
-	# When magnetic element is near the max value is reached
+	# When magnetic element is far the max value is reached
 	sensorValueMax=10300
 	"""When magnectic element are middle of distances between min and
-	max
+	max, 85% of delta + minvalue is 85% traveled distance
 	"""
-	sensorValueMedium=(int((sensorValueMax-sensorValueMin)/2)
-						+ sensorValueMin)
+	sensorValueMedium=int((sensorValueMax-sensorValueMin)*0.85)+sensorValueMin
 
 	baseTime=time.time()
 	countTemp=0		# Count value while state count and doesn't show
@@ -97,8 +96,8 @@ def main():
 	hilo0.start()
 	while True:
 		sensorValue = chan.value		# Distance of magnetic sensor
-		# Case if are plaque in high position
 		
+		# Case if pressure plate is not pressed magnetic element is far (max value)
 		if(sensorValue>=sensorValueMedium):
 			baseTime=time.time()
 			if(countTemp!=0):

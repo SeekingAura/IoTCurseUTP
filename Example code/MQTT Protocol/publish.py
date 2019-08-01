@@ -41,9 +41,9 @@ if __name__ == "__main__":
 		print("Esperando conexión")
 		time.sleep(1)
 
-	print("Publicando al topic ->'{0}'".format("area0/plant0/temperatura"))
-	client.publish("area0/plant0/temperatura","{temperatura: 30}")
-	print("Publicando al topic ->'{0}'".format("area0/plant0/humedad"))
-	client.publish("area0/plant0/humedad","{humedad: 70}")
+	print("Publicando al topic ->'{0}'".format("area0/otrositio"))
+	client.publish("area0/otrositio","Este mensaje fue para el otrositio")
+	print("Publicando al topic ->'{0}'".format("area0/casa0"))
+	client.publish("area0/casa0","No se que hay en la casa")
 	client.loop_stop()
 	client.disconnect()

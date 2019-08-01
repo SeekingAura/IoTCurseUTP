@@ -17,7 +17,7 @@ The time in python is measured in seconds(default) to get distance should be mul
 
 ### Graphic Circuit
 ![HC-SR04 sensor](/Images/Circuits/UltraSonic&#32;HC-sr04&#32;Sensor_bb.png)
-UltraSonic HC-SR04 Sensor_bb.png
+
 ### Run in Terminal
 ```bash
 python3 "ultrasonic hc-sr04 get data.py"

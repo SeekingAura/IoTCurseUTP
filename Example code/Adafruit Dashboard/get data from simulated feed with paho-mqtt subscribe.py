@@ -11,7 +11,7 @@ def on_connect(client, userdata, flags, rc):
 	print("Conectado con codigo resultante:  "+str(rc))
 	# Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-	client.subscribe("area0/tanque0/capacidad")
+	client.subscribe("area9876/tanque0/capacidad")
 
 def on_message(client, userdata, message):
 	# Message function will be called when a subscribed feed has a new value.
