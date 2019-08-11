@@ -13,7 +13,7 @@ except RuntimeError:
 from Adafruit_IO import Client
 
 def main():
-	if(len(sys.argv)!=3):
+	if(len(sys.argv)!=5):
 		sys.stderr.write('Usage: "{0}" $AdafruitIOUsername $AdafruitIOKey $AdafruitIOFeedForStateKey $AdafruitIOFeedForIntensityKey \n'.format(sys.argv[0]))
 		os._exit(1)
 	
