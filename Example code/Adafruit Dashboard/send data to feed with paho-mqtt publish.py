@@ -67,3 +67,4 @@ if __name__ == "__main__":
 		client.messageSend=input("Nuevo valor para el tanque\n")
 	client.loop_stop()
 	client.disconnect()
+	os._exit(1)

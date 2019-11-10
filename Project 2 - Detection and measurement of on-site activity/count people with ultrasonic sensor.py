@@ -140,7 +140,6 @@ def main():
 			if(not countState):
 				countState=True
 				GPIO.output(GPIO_COUNT_STATE, GPIO.HIGH)
-
 		# Turn on LED to alert every counted +1 for 1 cycle time
 		if(countTempLast!=countTemp):
 			countTempLast=countTemp
