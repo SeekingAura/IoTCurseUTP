@@ -11,7 +11,7 @@ Hygrometer have 2 output signal type, Analog and Digital, with digital signal th
 * ADS1115 Module
 
 ### Graphic Circuit.
-![Hygrometer sensor](/Images/Circuits/Hygrometer&#32;FC-28&#32;Sensor_bb.png)
+[![Hygrometer sensor](/Images/Circuits/Hygrometer&#32;FC-28&#32;Sensor_bb.png)](/Images/Circuits/Hygrometer&#32;FC-28&#32;Sensor_bb.png)
 
 ### Run in Terminal
 ```bash
